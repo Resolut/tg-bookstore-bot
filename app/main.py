@@ -17,6 +17,14 @@ async def cmd_start(message: types.Message):
     await message.answer('Hello!')
 
 
+@dp.message()
+async def echo(message: types.Message):
+    # old style:
+    # await bot.send_message(message.chat.id, message.text)
+
+    await message.answer(message.text)
+
+
 # Запуск процесса поллинга новых апдейтов
 async def main():
     logger.info(f"Running {__name__}")
