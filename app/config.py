@@ -1,17 +1,14 @@
-from pydantic import SecretStr
+from typing import Annotated
+
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    # Желательно вместо str использовать SecretStr
-    # для конфиденциальных данных, например, токена бота
-    bot_token: SecretStr = None
+    bot_token: Annotated[SecretStr, Field(None)] = None
+    debug_mode: Annotated[bool, Field(False)] = None
 
-    # Начиная со второй версии pydantic, настройки класса настроек задаются
-    # через model_config
-    # В данном случае будет использоваться файла .env, который будет прочитан
-    # с кодировкой UTF-8
-    model_config = SettingsConfigDict(env_file='../.env', env_file_encoding='utf-8')
+    model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
 
 
-config = Settings()
+settings = Settings()
