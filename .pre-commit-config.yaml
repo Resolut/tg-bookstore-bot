@@ -5,13 +5,17 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+      - id: check-json
       - id: check-merge-conflict
+      - id: double-quote-string-fixer
       - id: debug-statements
 
   - repo: https://github.com/psf/black
     rev: "25.1.0"
     hooks:
       - id: black
+        args:
+          - --skip-string-normalization
         additional_dependencies:
           [black]
 
@@ -26,5 +30,7 @@ repos:
     rev: 6.0.1
     hooks:
       - id: isort
+        args:
+          - --profile=black
         additional_dependencies:
           [isort]
