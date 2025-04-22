@@ -15,3 +15,5 @@ wheels/
 .vscode
 
 .python-version
+*.db
+logs/

@@ -37,3 +37,4 @@ repos:
     hooks:
       - id: uv-lock # Update the uv lockfile
       - id: uv-export # autoexport uv.lock to requirements.txt
+        args: ['--no-hashes', '--output-file=requirements.txt']
