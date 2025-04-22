@@ -1,24 +1,23 @@
 import logging
+import sys
+from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
 
-def setup_logger():
-    logger = logging.getLogger('my_app')
-    logger.setLevel(logging.DEBUG)
+# Create logs directory if it doesn't exist
+log_dir = Path('logs')
+log_dir.mkdir(exist_ok=True)
 
-    # Создаем консольный обработчик
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.DEBUG)
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        RotatingFileHandler(
+            'logs/bookstore.log', maxBytes=10 * 1024 * 1024, backupCount=5  # 10MB
+        ),
+        logging.StreamHandler(sys.stdout),
+    ],
+)
 
-    # Задаем формат логов
-    formatter = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    )
-    ch.setFormatter(formatter)
-
-    # Добавляем обработчик к логгеру
-    logger.addHandler(ch)
-
-    return logger
-
-
-logger = setup_logger()
+logger = logging.getLogger('bookstore')
